@@ -1,0 +1,18 @@
+{
+  "name": "estatesapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "serve": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "volandfrederic",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.5"
+  }
+}
