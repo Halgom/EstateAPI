@@ -26,7 +26,7 @@ exports.getEstates = (req, res, next) => {
         if (req.query.range) range = parseInt(req.query.range);
         if (range < 10) range = 10;
         queryParams['range'] = range;
-        query["adresse.location"] = { $nearSphere: { $geometry: { type : "Point", coordinates: location }, $maxDistance: range } };
+        query["adresse.location"] = { $nearSphere: { $geometry: { type : "Point", coordinates: [location[0], location[1]] }, $maxDistance: range } };
     } else {
         res.status(400).json({
             status: "400: Bad Request",
@@ -48,18 +48,46 @@ exports.getEstates = (req, res, next) => {
 
     if (req.query.mutCode) {
         if (req.query.mutCode in ['1', '2', '3', '4', '5', '6', 'null']) {
-            queryParams['nature_mutation_code'] = req.query.mutCode;
+            queryParams['code_nature_mutation'] = req.query.mutCode;
             queryParams['nature_mutation'] = utils.mutCode[req.query.mutCode];
-            query["nature_mutation_code"] = req.query.mutCode;
+            query["code_nature_mutation"] = req.query.mutCode;
         }
     }
 
-    if (req.query.rooms) {
-        queryParams['nombre_pieces_principales'] = req.query.rooms;
-        query["nombre_pieces_principales:"] = req.query.rooms;
+    if (req.query.nbRoomsMin || req.query.nbRoomsMax) {
+        let roomQuery = {};
+        if (req.query.nbRoomsMin) {
+            roomQuery['$gte'] = req.query.nbRoomsMin;
+        }
+        if (req.query.nbRoomsMax) {
+            roomQuery['$lte'] = req.query.nbRoomsMax;
+        }
+        query['nombre_pieces_principales'] = roomQuery;
     }
 
-    let limit = 1000
+    if (req.query.priceMin || req.query.priceMax) {
+        let priceQuery = {};
+        if (req.query.priceMin) {
+            priceQuery['$gte'] = req.query.priceMin;
+        }
+        if (req.query.priceMax) {
+            priceQuery['$lte'] = req.query.priceMax;
+        }
+        query['valeur_fonciere'] = priceMax;
+    }
+
+    if (req.query.areaMin || req.query.areaMax) {
+        let areaQuery = {};
+        if (req.query.areaMin) {
+            areaQuery['$gte'] = req.query.areaMin;
+        }
+        if (req.query.areaMax) {
+            areaQuery['$lte'] = req.query.areaMax;
+        }
+        query['surface_reelle_bati'] = areaMax;
+    }
+
+    let limit = 1000;
     if (req.query.limit) {
         queryParams['limit'] = req.query.limit;
         limit = req.query.limit;
