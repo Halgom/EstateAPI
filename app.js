@@ -7,7 +7,7 @@ const app = express();
 
 // connect to MongoDB
 mongoose.connect(
-    'mongodb://localhost:27017/estateDB',
+    'mongodb://localhost:27017/',
     { useNewUrlParser: true, useUnifiedTopology: true }
 ).then(() => {
     console.log('Connection to database successful')
