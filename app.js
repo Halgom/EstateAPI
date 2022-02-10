@@ -10,9 +10,9 @@ const app = express();
 // connect to MongoDB
 let uri = "";
 if (process.env.USERNAME && process.env.PASSWORD) {
-    uri = "mongodb://" + process.env.USERNAME + ":" + process.env.PASSWORD + "@localhost:27017/estateDB";
+    uri = "mongodb://" + process.env.USERNAME + ":" + process.env.PASSWORD + "@127.0.0.1:27017/estateDB";
 } else {
-    uri = "mongodb://localhost:27017/estateDB";
+    uri = "mongodb://127.0.0.1:27017/estateDB";
 }
 mongoose.connect(
     uri,
