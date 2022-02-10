@@ -2,17 +2,26 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+require('dotenv').config();
+
 // set up express app
 const app = express();
 
 // connect to MongoDB
+let uri = "";
+if (process.env.USERNAME && process.env.PASSWORD) {
+    uri = "mongodb://" + process.env.USERNAME + ":" + process.env.PASSWORD + "localhost:27017/estateDB";
+} else {
+    uri = "mongodb://localhost:27017/estateDB";
+}
 mongoose.connect(
-    'mongodb://localhost:27017/',
+    uri,
     { useNewUrlParser: true, useUnifiedTopology: true }
 ).then(() => {
-    console.log('Connection to database successful')
-}).catch(() => {
-    console.error('connection failed')
+    console.log('Connection to database successful');
+}).catch((err) => {
+    console.error('connection failed');
+    console.log(err);
 });
 
 // parse request body as JSON
