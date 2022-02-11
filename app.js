@@ -16,7 +16,10 @@ if (process.env.USERNAME && process.env.PASSWORD) {
 }
 mongoose.connect(
     uri,
-    { useNewUrlParser: true, useUnifiedTopology: true }
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
 ).then(() => {
     console.log('Connection to database successful');
 }).catch((err) => {
