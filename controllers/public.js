@@ -73,7 +73,7 @@ exports.getEstates = (req, res, next) => {
         if (req.query.priceMax) {
             priceQuery['$lte'] = req.query.priceMax;
         }
-        query['valeur_fonciere'] = priceMax;
+        query['valeur_fonciere'] = priceQuery;
     }
 
     if (req.query.areaMin || req.query.areaMax) {
@@ -84,7 +84,7 @@ exports.getEstates = (req, res, next) => {
         if (req.query.areaMax) {
             areaQuery['$lte'] = req.query.areaMax;
         }
-        query['surface_reelle_bati'] = areaMax;
+        query['surface_reelle_bati'] = areaQuery;
     }
 
     let limit = 1000;
