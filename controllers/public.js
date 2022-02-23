@@ -1,7 +1,10 @@
 // noinspection JSDeprecatedSymbols
 
 const Estate = require("../models/estate");
-const utils = require('../utils/utils');
+
+exports.testWorking = (req, res, next) => {
+    res.status(200).json({message: "ok"});
+}
 
 exports.getEstates = (req, res, next) => {
     let query = {};
