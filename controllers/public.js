@@ -27,12 +27,15 @@ exports.getEstates = (req, res, next) => {
     }
 
     if (req.query.type_bien) {
+        console.log(req.query.type_bien);
         let type_bien = req.query.type_bien.split(',');
-        query['$or'] = []
-        if (type_bien[0] === '1') query['$or'].append({code_type_local: '1'});
-        if (type_bien[1] === '1') query['$or'].append({code_type_local: '2'});
-        if (type_bien[2] === '1') query['$or'].append({code_type_local: '4'});
-        if (type_bien[3] === '1') query['$or'].append({code_nature_mutation: '6'});
+        console.log(type_bien);
+        typeBienQuery = [];
+        if (type_bien[0] === '1') typeBienQuery.push({code_type_local: '1'});
+        if (type_bien[1] === '1') typeBienQuery.push({code_type_local: '2'});
+        if (type_bien[2] === '1') typeBienQuery.push({code_type_local: '4'});
+        if (type_bien[3] === '1') typeBienQuery.push({code_nature_mutation: '6'});
+        query['$or'] = typeBienQuery;
     }
 
     if (req.query.nombre_pieces_principales_min || req.query.nombre_pieces_principales_max) {
