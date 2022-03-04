@@ -10,22 +10,22 @@ const app = express();
 // connect to MongoDB
 let uri = "";
 if (process.env.USERNAME && process.env.PASSWORD) {
-    uri = "mongodb://" + process.env.USERNAME + ":" + process.env.PASSWORD + "@127.0.0.1:27017/estateDB";
+    uri = "mongodb://" + process.env.USERNAME + ":" + process.env.PASSWORD + "@127.0.0.1:27017/estateDB?authSource=admin&w=1";
+    mongoose.connect(
+        uri,
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }
+    ).then(() => {
+        console.log('Connection to database successful');
+    }).catch((err) => {
+        console.error('connection failed');
+        console.log(err);
+    });
 } else {
-    uri = "mongodb://127.0.0.1:27017/estateDB";
+    console.error('no config file found')
 }
-mongoose.connect(
-    uri,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }
-).then(() => {
-    console.log('Connection to database successful');
-}).catch((err) => {
-    console.error('connection failed');
-    console.log(err);
-});
 
 // parse request body as JSON
 app.use(bodyParser.json());
