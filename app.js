@@ -11,6 +11,8 @@ const app = express();
 let uri = "";
 if (process.env.USERNAME && process.env.PASSWORD) {
     uri = "mongodb://" + process.env.USERNAME + ":" + process.env.PASSWORD + "@127.0.0.1:27017/estateDB?authSource=admin&w=1";
+    console.log('database connection string');
+    console.log(uri);
     mongoose.connect(
         uri,
         {
@@ -24,7 +26,7 @@ if (process.env.USERNAME && process.env.PASSWORD) {
         console.log(err);
     });
 } else {
-    console.error('no config file found')
+    console.error('no config file found');
 }
 
 // parse request body as JSON
