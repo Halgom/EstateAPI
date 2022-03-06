@@ -8,7 +8,7 @@ require('dotenv').config();
 const app = express();
 
 // connect to MongoDB
-let uri = uri = "mongodb://127.0.0.1:27017/estateDB";
+let uri = "mongodb://127.0.0.1:27017/estateDB";
 console.log('database connection string');
 console.log(uri);
 mongoose.connect(
