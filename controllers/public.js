@@ -10,6 +10,7 @@ exports.getEstates = (req, res, next) => {
     let query = {};
 
     if (req.query.location) {
+        req.query.location.replace("%2C", ","); // reformat url encoding for ','
         let location = req.query.location.split(',');
         for (let i = 0; i < 2; i++) location[i] = parseFloat(location[i]);
         let range = 500;
